@@ -22,6 +22,7 @@ justify-content: space-between;
 
 const Filter=styled.div`
 margin: 20px;
+font-size: 24px;
     
 `
 const FilterText=styled.span`
@@ -39,6 +40,10 @@ const Select=styled.select`
 const Option=styled.option`
 
 `
+const Text=styled.span`
+font-weight: 700;
+  
+`
 
 
 
@@ -50,14 +55,7 @@ const ProductList = () => {
   const[sort,setSort]=useState("newest")
   
   
-  const handleFilters=(e)=>{
-   const value=e.target.value
-     setFilters({
-      ...filters,
-      [e.target.name]:value,
-     });
-
-     };
+  
 
 
   return (
@@ -68,13 +66,7 @@ const ProductList = () => {
 
       <FilterContainer>
             <Filter>
-            
-            <Select name="category"onChange={handleFilters}>
-                
-                
-            </Select>
-            
-
+              All available <Text>{cat}</Text>  products
             </Filter>
             <Filter><FilterText>Sort Products:</FilterText>
             <Select onChange={(e)=>setSort(e.target.value)}>

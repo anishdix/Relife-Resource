@@ -48,6 +48,7 @@ const Input = styled.input`
 `;
 
 const Center = styled.div`
+  cursor: pointer;
   flex: 1;
   text-align: center;
 `;
@@ -74,6 +75,7 @@ const MenuItem = styled.div`
 
 
 const Navbar = () => {
+  const user=useSelector((state)=>state.user.currentUser);
   const quantity =useSelector(state=>state.cart.quantity)
   
   
@@ -85,6 +87,9 @@ const Navbar = () => {
     logOut(dispatch);
     history.push("/logout");
   };
+  const handleLogo=()=>{
+    history.push("/")
+  }
 
   return (
     <Container>
@@ -97,19 +102,24 @@ const Navbar = () => {
             <Search style={{color:"gray",fontSize:16}}/>
         </SearchContainer>
         </Left>
-        <Center><Logo>RELIFE RESOURCES</Logo>
+        <Center onClick={handleLogo}>
+          <Logo>RELIFE RESOURCES</Logo>
         </Center>
         <Right>
           
+        {!user?
+        <>
         <Link to ="/">
           <MenuItem >Register</MenuItem>
           </Link>
           
           <Link to ="/login">
           <MenuItem>SignIn</MenuItem>
-          </Link>
+          </Link> 
+        </>
+        :<MenuItem onClick={handleClick}>LogOut</MenuItem>}
           
-          <MenuItem onClick={handleClick}>LogOut</MenuItem>
+          
           
           
           <Link to ="/cart">
