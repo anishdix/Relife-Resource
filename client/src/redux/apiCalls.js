@@ -1,0 +1,61 @@
+import { publicRequest,userRequest } from "../requestMethods";
+import { loginFailure, loginStart, loginSuccess,
+        logout,
+        addUserFailure,addUserStart,addUserSuccess}from "./userRedux"
+import{addOrderFailure,addOrderStart,addOrderSuccess} from"./orderRedux"
+ import { addProductFailure, addProductStart, addProductSuccess } from "./productRedux"
+import { clear } from "./cartRedux";
+
+export const login=async(dispatch,user)=>{
+    dispatch(loginStart());
+    try{
+        const res=await publicRequest.post("auth/login",user)
+        dispatch(loginSuccess(res.data));
+
+    }catch(err){
+        dispatch(loginFailure());
+    }
+};
+//Add Product
+export const addProduct=async(product,dispatch)=>{
+    dispatch(addProductStart());
+    try{
+        const res=await userRequest.post(`/products`, product );
+        dispatch(addProductSuccess(res.data));
+
+    }catch(err){
+        dispatch(addProductFailure());
+    }
+};
+//Add User
+export const addUser=async(dispatch,user)=>{
+    dispatch(addUserStart());
+    try{
+        const res=await publicRequest.post(`auth/register`, user );
+        dispatch(addUserSuccess(res.data));
+
+    }catch(err){
+        
+        dispatch(addUserFailure());
+    }
+};
+//Add Order
+export const addOrder=async(dispatch,order)=>{
+    dispatch(addOrderStart());
+    try{
+        const res=await userRequest.post(`/orders`, order );
+        dispatch(addOrderSuccess(res.data));
+
+    }catch(err){
+        
+        dispatch(addOrderFailure());
+    }
+};
+//logout
+export const logOut=async(dispatch)=>{
+    dispatch(logout());
+};
+//clear cart
+export const clearCart=async(dispatch)=>{
+    dispatch(clear());
+};
