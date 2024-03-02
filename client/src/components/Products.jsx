@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Product from "./Product";
 import { useEffect ,useState} from "react";
 import axios from "axios";
+import { Box } from "@mui/system";
+import {CircularProgress} from "@mui/material";
 
 
 
@@ -16,6 +18,7 @@ const Container = styled.div`
 const Products = ({cat,filters,sort}) => {
   console.log(cat,filters,sort)
   const [products,setProducts]=useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [filteredProducts,setFilteredProducts]=useState([]);
 
  
@@ -24,14 +27,16 @@ const Products = ({cat,filters,sort}) => {
 
   useEffect(()=>{
     const getProducts=async()=>{
+      setIsLoading(true);
       try{
         const res=await axios.get(cat ? `https://relife-resource.onrender.com/api/products?category=${cat}`
         :"https://relife-resource.onrender.com/api/products");
       setProducts(res.data)
       
       }catch(err){
-
+        console.error(err)
       }
+      setIsLoading(false);
     };getProducts();
   },[cat]);
 
@@ -74,7 +79,22 @@ const Products = ({cat,filters,sort}) => {
 
   return (
     <Container>
-      {cat
+      
+      {isLoading ? (
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          sx={{margin:"auto"}}
+          py={10}
+        >
+          <CircularProgress size={30} />
+          <h4> Loading Products... </h4>
+        </Box>
+      ):
+
+      cat
       ? filteredProducts.map((item) => 
         <Product item={item} key={item._id}  />)
       : products

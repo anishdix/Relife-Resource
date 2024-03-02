@@ -140,6 +140,7 @@ const SummaryItem = styled.div`
   margin: 30px 0px;
   display: flex;
   justify-content: space-between;
+  
   font-weight: ${(props) => props.type === "total" && "500"};
   font-size: ${(props) => props.type === "total" && "24px"};
 `;
@@ -149,6 +150,8 @@ margin-top:10px
 `;
 
 const SummaryItemPrice = styled.span``;
+
+
 
 const Button = styled.button`
   width: 100%;
@@ -160,6 +163,7 @@ const Button = styled.button`
 const Input = styled.input`
   width: 200px;
   height:30px;
+  padding-left:10px;
   
 `;
 
@@ -264,7 +268,7 @@ return (
           <SummaryTitle>ORDER DETAILS</SummaryTitle>
           <SummaryItem>
             <SummaryItemText>UserName</SummaryItemText>
-            <Input placeholder="username"onChange={(e)=>setUsername(e.target.value)}></Input>
+            <Input placeholder="username" onChange={(e)=>setUsername(e.target.value)}></Input>
           </SummaryItem>
           <SummaryItem>
             <SummaryItemText>Payment Date</SummaryItemText>

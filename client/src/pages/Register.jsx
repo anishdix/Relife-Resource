@@ -62,22 +62,36 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
 `;
+const Error =styled.div`
+padding-top: 10px;
+color: red;
+  
+`
 
 const Register = () => {
   
   const[username,setUsername]=useState("");
   const[email,setEmail]=useState("");
   const[password,setPassword]=useState("");
+  const[error,setError]=useState("")
   const dispatch=useDispatch();
   const history =useHistory();
   
 
-  const handleClick=(e)=>{
+  const handleSubmit=(e)=>{
     e.preventDefault()   //used to stop refreshing the page
-    addUser(dispatch,{username,email,password})
-    // login(dispatch,{username,password})
-    logOut(dispatch);
-    history.push("/login");
+    if(password.length<=7)
+    {
+      setError("password should be atleast 8 charecters")
+    }
+    else
+    {
+      addUser(dispatch,{username,email,password})
+      // login(dispatch,{username,password})
+      logOut(dispatch);
+      history.push("/login");
+
+    }
   }
 
   
@@ -90,25 +104,26 @@ const Register = () => {
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="first name" />
-          <Input placeholder="last name" />
-          <Input name="username" type="text" onChange={(e)=>setUsername(e.target.value)} placeholder="username" />
-          <Input name="email" type="email" onChange={(e)=>setEmail(e.target.value)} placeholder="email" />
+        <Form onSubmit={handleSubmit}>
+          <Input placeholder="first name" required/>
+          <Input placeholder="last name" required/>
+          <Input name="username" type="text" onChange={(e)=>setUsername(e.target.value)} placeholder="username" required/>
+          <Input name="email" type="email" onChange={(e)=>setEmail(e.target.value)} placeholder="email" required/>
           
 
-          <Input name="password" type="password" onChange={(e)=>setPassword(e.target.value)}  placeholder="password" />
+          <Input name="password" type="password" onChange={(e)=>setPassword(e.target.value)}  placeholder="password" required/>
           
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
 
-          <Button onClick={handleClick} >
+          <Button type="submit" >
           
             
             CREATE</Button>
         </Form>
+        {error && <Error >{error}</Error>}
       </Wrapper>
     </Container>
   );

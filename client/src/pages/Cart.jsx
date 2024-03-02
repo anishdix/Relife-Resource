@@ -9,6 +9,7 @@ import {  useDispatch } from "react-redux";
 
 import { clearCart } from "../redux/apiCalls";
 import {Link}from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
 
@@ -154,6 +155,7 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 
@@ -163,6 +165,7 @@ const Cart = () => {
   const cart=useSelector(state=>state.cart);
 
   const dispatch=useDispatch();
+  const history =useHistory();
   
   
 
@@ -179,7 +182,7 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <TopButton onClick={((e)=>{history.push("/")})}>CONTINUE SHOPPING</TopButton>
           <TopTexts>
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
