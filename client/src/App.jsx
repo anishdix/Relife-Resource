@@ -11,30 +11,30 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-   Redirect,
 } from "react-router-dom";
- import { useSelector } from "react-redux";
+//  import { useSelector } from "react-redux";
 import Order from "./pages/Order";
 import Logout from "./pages/Logout";
 
 
 const App = () => {
-   const user=useSelector((state)=>state.user.currentUser);
+  //  const user=useSelector((state)=>state.user.currentUser);
   return (
     
     <Router>
       <Switch>
       <Route exact path="/">
-         {user ? <Redirect to="/login"/>:<Register/>}
+           <Home/>
          </Route>
           <Route path="/login">
-          {user ? <Redirect to="/home"/>:<Login/>}
-          
-          
+            <Login/>
+         </Route>
+          <Route path="/home">
+            <Home/>
          </Route>
          
-         <Route path="/home">
-           <Home/>
+         <Route path="/register">
+         <Register/>
          </Route>
       
          <Route path="/products/:category">

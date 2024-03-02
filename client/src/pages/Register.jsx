@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { addUser,logOut } from "../redux/apiCalls";
+import { addUser } from "../redux/apiCalls";
 import { useDispatch ,} from "react-redux";
 import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -86,9 +86,9 @@ const Register = () => {
     }
     else
     {
-      addUser(dispatch,{username,email,password})
+      addUser(dispatch,{username,password,email})
       // login(dispatch,{username,password})
-      logOut(dispatch);
+      // logOut(dispatch);
       history.push("/login");
 
     }

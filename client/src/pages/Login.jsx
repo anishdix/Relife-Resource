@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -73,21 +73,36 @@ const Error=styled.span`
 `;
 
 const Login = () => {
+  
+  const user=useSelector((state)=>state.user.currentUser)
   const[username,setUsername]=useState("");
   const[password,setPassword]=useState("");
+  const[message,setMessage]=useState("")
   const dispatch=useDispatch();
   const history =useHistory();
 
-  const {error}=useSelector((state)=>state.user)
-console.log(error)
-  const handleClick=(e)=>{
+  
+
+  const handleClick=async(e)=>{
     e.preventDefault()   //used to stop refreshing the page
-    login(dispatch,{username,password})
+    await login(dispatch,{username,password})
+
+    if(user)
+    {
+      history.push("./")
+      setMessage("")
+    }
+    else
+    {
+      setMessage("...Wrong Username or Password")
+      
+    }
+
     
     
   }
   const handleCreate=(e)=>{
-    history.push("/");
+    history.push("/register");
 
   }
 
@@ -108,12 +123,12 @@ console.log(error)
           <Button onClick={handleClick} 
           >
             LOGIN</Button>
-            {error && <Error>...Wrong Username or Password</Error>}
+            {message && <Error>...Wrong Username or Password</Error>}
 
           
           
           <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link onClick={handleCreate}>CREATE A NEW ACCOUNT</Link>
+          <Link onClick={(e)=>{handleCreate()}}>CREATE A NEW ACCOUNT</Link>
         </Form>
       </Wrapper>
     </Container>
