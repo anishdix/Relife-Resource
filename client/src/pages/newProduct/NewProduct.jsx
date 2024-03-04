@@ -80,15 +80,18 @@ export default function NewProduct() {
 console.log(file);
   return (
     <div className="newProduct">
-      <h1 className="addProductTitle">New Product</h1>
+      <h1 className="addProductTitle">Add Your Product</h1>
       <form className="addProductForm">
         <div className="addProductItem">
-          <label>Image</label>
+          <label  >Image</label>
           <input
             type="file"
             id="file"
             onChange={(e) => setFile(e.target.files[0])}
+            required
           />
+          <label htmlFor="file" class="custom-file-label">Choose File</label>
+
         </div>
         <div className="addProductItem">
           <label>Title</label>
@@ -97,6 +100,7 @@ console.log(file);
             type="text"
             placeholder="Product Title"
             onChange={handleChange}
+            required
           />
         </div>
         <div className="addProductItem">
@@ -106,6 +110,7 @@ console.log(file);
             type="text"
             placeholder="description..."
             onChange={handleChange}
+            required
           />
         </div>
         <div className="addProductItem">
@@ -115,15 +120,16 @@ console.log(file);
             type="number"
             placeholder="100"
             onChange={handleChange}
+            required
           />
         </div>
         <div className="addProductItem">
           <label>Categories</label>
-          <input type="text" placeholder="Creative/Scrap" onChange={handleCat} />
+          <input type="text" placeholder="Creative/Scrap" onChange={handleCat}required />
         </div>
         <div className="addProductItem">
           <label>Stock</label>
-          <select name="inStock" onChange={handleChange}>
+          <select name="inStock" onChange={handleChange} required>
             <option value="true">Yes</option>
             <option value="false">No</option>
           </select>

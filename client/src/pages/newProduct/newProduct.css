@@ -1,14 +1,37 @@
 .newProduct {
-  flex: 4;
-  margin-left: 100px;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("https://wallpapercave.com/wp/gQSAMah.jpg")
+      center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* flex: 4; */
+  /* margin-left: 100px; */
+  flex-direction: column;
+  padding: 100px;
+  font-size: 24px;
+  gap: 40px;
 }
 
 .addProductForm {
-  margin-top: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+  padding: 30px 0px;
 }
 
 .addProductItem {
-  width: 250px;
+  width: 400px;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
@@ -22,10 +45,12 @@
 
 .addProductItem > input {
   padding: 10px;
+  border-radius: 8px;
 }
 
 .addProductItem > select {
   padding: 10px;
+  border-radius: 8px;
 }
 
 .addProductButton {
@@ -37,4 +62,25 @@
   color: white;
   font-weight: 600;
   cursor: pointer;
+  width: 130px;
+  height: 50px;
+  font-size: 20px;
+}
+#file{
+  padding-left: 65px;
+  font-size: 20px;
+}
+.custom-file-label{
+            display: inline-block;
+            padding:  12px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff !important;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+
+}
+input[type="file"] {
+  display: none;
 }
