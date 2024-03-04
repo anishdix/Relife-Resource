@@ -6,6 +6,7 @@ import{addOrderFailure,addOrderStart,addOrderSuccess} from"./orderRedux"
  import { addProductFailure, addProductStart, addProductSuccess } from "./productRedux"
 import { clear } from "./cartRedux";
 
+const URL="https://relife-resource.onrender.com/api/";
 export const login=async(dispatch,user)=>{
     dispatch(loginStart());
     try{
@@ -13,6 +14,7 @@ export const login=async(dispatch,user)=>{
         dispatch(loginSuccess(res.data));
 
     }catch(err){
+        
         dispatch(loginFailure());
     }
 };
@@ -31,11 +33,12 @@ export const addProduct=async(product,dispatch)=>{
 export const addUser=async(dispatch,user)=>{
     dispatch(addUserStart());
     try{
-        const res=await publicRequest.post(`auth/register`, user );
+        const res=await publicRequest.post("auth/register", user );
         dispatch(addUserSuccess(res.data));
+        console.log(res)
 
     }catch(err){
-        
+        console.log(err,"error occured")
         dispatch(addUserFailure());
     }
 };

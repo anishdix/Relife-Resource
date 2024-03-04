@@ -44,8 +44,11 @@ const SearchContainer = styled.div`
 
 const Input = styled.input`
   border: none;
+  outline: none;
+  
   
 `;
+
 
 const Center = styled.div`
   cursor: pointer;
@@ -109,7 +112,7 @@ const Navbar = () => {
           
         {!user?
         <>
-        <Link to ="/">
+        <Link to ="/register">
           <MenuItem >Register</MenuItem>
           </Link>
           

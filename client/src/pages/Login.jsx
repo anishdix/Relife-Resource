@@ -74,7 +74,7 @@ const Error=styled.span`
 
 const Login = () => {
   
-  const user=useSelector((state)=>state.user.currentUser)
+  const { currentUser, error } = useSelector((state) => state.user);
   const[username,setUsername]=useState("");
   const[password,setPassword]=useState("");
   const[message,setMessage]=useState("")
@@ -82,22 +82,21 @@ const Login = () => {
   const history =useHistory();
 
   
-
-  const handleClick=async(e)=>{
+  
+  const handleSubmit=async(e)=>{
     e.preventDefault()   //used to stop refreshing the page
-    await login(dispatch,{username,password})
+     login(dispatch,{password,username})
 
-    if(user)
+     console.log(error,currentUser)
+    if(error)
     {
-      history.push("./")
+      setMessage("wrong username or password")
+    }
+    if( currentUser)
+    {
+      history.push("/")
       setMessage("")
     }
-    else
-    {
-      setMessage("...Wrong Username or Password")
-      
-    }
-
     
     
   }
@@ -111,16 +110,16 @@ const Login = () => {
     <Container>
       <Wrapper>
         <Title>SIGN IN</Title>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           
           <Input placeholder="username" 
-          onChange={(e)=>setUsername(e.target.value)}/>
+          onChange={(e)=>setUsername(e.target.value)} required/>
 
           <Input placeholder="password"   
           type="password"       
-           onChange={(e)=>setPassword(e.target.value)}/>
+           onChange={(e)=>setPassword(e.target.value)} required/>
 
-          <Button onClick={handleClick} 
+          <Button  type="submit" 
           >
             LOGIN</Button>
             {message && <Error>...Wrong Username or Password</Error>}

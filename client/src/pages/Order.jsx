@@ -34,6 +34,7 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
+  
 `;
 
 
