@@ -81,11 +81,16 @@ const Login = () => {
   const dispatch=useDispatch();
   const history =useHistory();
 
+  useEffect(()=>{
+    console.log("currentUser",currentUser)
+    console.log("Error",error)
+  },[currentUser,error]);
+
   
   
   const handleSubmit=async(e)=>{
     e.preventDefault()   //used to stop refreshing the page
-     login(dispatch,{password,username})
+     await login(dispatch,{password,username})
 
      console.log(error,currentUser)
     if(error)
