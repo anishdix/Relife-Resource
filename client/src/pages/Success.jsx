@@ -1,4 +1,6 @@
-import { Link, useLocation } from "react-router-dom/cjs/react-router-dom.min"
+import { useDispatch } from "react-redux"
+import { clearCart } from "../redux/apiCalls";
+import { Link, useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min"
 import styled from "styled-components"
 
 const Container=styled.div`
@@ -42,15 +44,22 @@ const Button=styled.button`
 const Success = () => {
   
   
-
+  const dispatch=useDispatch();
+  const history =useHistory();
     const location=useLocation()
     console.log(location)
+    const handleClick=(e) => {
+      e.preventDefault()
+    clearCart(dispatch);
+    history.push("/")
+
+    }
   return (
     <Container>
       <MsgText>   PAYMENT  SUCCESSFULL</MsgText> 
-      <Link to="/home">
-      <Button>Home</Button>
-      </Link>
+      
+      <Button onClick={handleClick}>Home</Button>
+      
     </Container>
     
   )

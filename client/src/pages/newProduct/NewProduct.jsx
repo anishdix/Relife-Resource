@@ -125,7 +125,7 @@ console.log(file);
         </div>
         <div className="addProductItem">
           <label>Categories</label>
-          <input type="text" placeholder="Creative/Scrap" onChange={handleCat}required />
+          <input type="text" placeholder="creative/scrap" onChange={handleCat}required />
         </div>
         <div className="addProductItem">
           <label>Stock</label>

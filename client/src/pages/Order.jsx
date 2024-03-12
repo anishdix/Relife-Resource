@@ -1,6 +1,4 @@
 
-
-import { Add,  Remove } from "@material-ui/icons";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -253,9 +251,9 @@ return (
             </ProductDetail>
             <PriceDetail>
               <ProductAmountContainer>
-                <Add />
+              <b>Quantity:</b>
                 <ProductAmount>{product.quantity}</ProductAmount>
-                <Remove />
+                
               </ProductAmountContainer>
               <ProductPrice>
                 {product.price*product.quantity}

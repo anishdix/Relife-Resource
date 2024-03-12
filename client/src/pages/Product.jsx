@@ -26,9 +26,11 @@ const ImgContainer = styled.div`
 `;
 
 const Image = styled.img`
+max-width: 1000px;
+max-height: 600px;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   
 `;
 
@@ -86,10 +88,7 @@ const Amount = styled.span`
   justify-content: center;
   margin: 0px 5px;
 `;
-const TopText=styled.span`
-cursor: pointer;
-  
-`
+
 
 const Button = styled.button`
   padding: 15px 20px;
@@ -97,6 +96,7 @@ const Button = styled.button`
   background-color: white;
   cursor: pointer;
   font-weight: 500;
+  border-radius: 8px;
 
   &:hover{
       background-color: #edc2c2;
@@ -132,11 +132,11 @@ const Product = () => {
 
 
   const handleQuantity= (type) =>{
-  if((type==="inc")){
-    setQuantity(quantity + 1);}
+  if((type==="des"&& quantity>1)){
+    setQuantity(quantity -1);}
 
-  else{
-    setQuantity(quantity - 1);
+  if((type==="inc")){
+    setQuantity(quantity + 1);
 
   }
   };
@@ -169,7 +169,7 @@ const Product = () => {
               
               <Add onClick={()=>handleQuantity("inc")}/>
             </AmountContainer>
-            <TopText onClick={handleClickClear}>clear</TopText>
+            <Button onClick={handleClickClear}>Clear Cart</Button>
             <Button onClick={handleClick}>
               ADD TO CART</Button>
           </AddContainer>

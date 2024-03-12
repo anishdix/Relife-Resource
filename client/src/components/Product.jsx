@@ -28,6 +28,7 @@ const Container = styled.div`
   margin: 5px;
   min-width: 280px;
   height: 350px;
+  width: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,8 +49,9 @@ const Circle = styled.div`
 `;
 
 const Image = styled.img`
-  height:65%;
-  width: 95%;
+  height:300px;
+  width: 250px;
+  object-fit: contain;
   
   z-index: 2;
 `;
