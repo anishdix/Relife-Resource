@@ -10,12 +10,15 @@ const URL="https://relife-resource.onrender.com/api/";
 export const login=async(dispatch,user)=>{
     dispatch(loginStart());
     try{
+
         const res=await publicRequest.post("auth/login",user)
         dispatch(loginSuccess(res.data));
+        
 
     }catch(err){
-        
         dispatch(loginFailure());
+        console.log(err.response.status,"from apicall")
+        throw new Error(err.response.status)
     }
 };
 //Add Product
@@ -57,6 +60,7 @@ export const addOrder=async(dispatch,order)=>{
 //logout
 export const logOut=async(dispatch)=>{
     dispatch(logout());
+    dispatch(clear());
 };
 //clear cart
 export const clearCart=async(dispatch)=>{

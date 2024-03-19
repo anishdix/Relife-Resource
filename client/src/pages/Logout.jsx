@@ -44,7 +44,7 @@ const Logout = () => {
   
 
     const location=useLocation()
-    console.log(location)
+    
   return (
     <Container>
       <MsgText>  LOGGED OUT</MsgText> 

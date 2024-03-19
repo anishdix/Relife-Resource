@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { login } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -73,8 +73,9 @@ const Error=styled.span`
 `;
 
 const Login = () => {
-  
-  const { currentUser, error } = useSelector((state) => state.user);
+
+  const userRef=useRef()
+
   const[username,setUsername]=useState("");
   const[password,setPassword]=useState("");
   const[message,setMessage]=useState("")
@@ -82,26 +83,33 @@ const Login = () => {
   const history =useHistory();
 
   useEffect(()=>{
-    console.log("currentUser",currentUser)
-    console.log("Error",error)
-  },[currentUser,error]);
+    userRef.current.focus()
+  },[]);
 
-  
-  
+
+  useEffect(()=>{
+    setMessage("")
+    
+  },[username,password]);
+
+ 
   const handleSubmit=async(e)=>{
-    e.preventDefault()   //used to stop refreshing the page
-     await login(dispatch,{password,username})
-
-     console.log(error,currentUser)
-    if(error)
-    {
-      setMessage("wrong username or password")
-    }
-    if( currentUser)
-    {
+    e.preventDefault()  
+    try{
+      await login(dispatch,{password,username})
       history.push("/")
-      setMessage("")
+
+    }catch(err)
+    {
+      console.log(err,"error")
+     
+      setMessage("...Wrong username or password")
+    
+   
     }
+     
+
+     
     
     
   }
@@ -117,7 +125,7 @@ const Login = () => {
         <Title>SIGN IN</Title>
         <Form onSubmit={handleSubmit}>
           
-          <Input placeholder="username" 
+          <Input placeholder="username" ref={userRef}
           onChange={(e)=>setUsername(e.target.value)} required/>
 
           <Input placeholder="password"   
@@ -127,7 +135,7 @@ const Login = () => {
           <Button  type="submit" 
           >
             LOGIN</Button>
-            {message && <Error>...Wrong Username or Password</Error>}
+            {message && <Error >{message}</Error>}
 
           
           

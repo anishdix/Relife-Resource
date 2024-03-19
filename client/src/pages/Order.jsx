@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import {userRequest}from"../requestMethods"
  import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { addOrder, clearCart } from "../redux/apiCalls";
+import { addOrder } from "../redux/apiCalls";
 
 const KEY=process.env.REACT_APP_STRIPE;
 
@@ -37,18 +37,8 @@ const Top = styled.div`
 
 
 
-const TopTexts = styled.div`
- display: flex;
-  align-items:center ;
-  justify-content: center;
-  ${mobile({ display: "none" })}
-`;
-const TopText = styled.span`
-  text-decoration: underline;
-  cursor: pointer;
-  margin: 0px 10px;
- 
-`;
+
+
 
 const Bottom = styled.div`
   display: flex;
@@ -65,6 +55,7 @@ const Product = styled.div`
   display: flex;
   justify-content: space-between;
   ${mobile({ flexDirection: "column" })}
+  margin-bottom: 10px;
 `;
 
 const ProductDetail = styled.div`
@@ -210,10 +201,7 @@ useEffect(()=>{
 },[stripeToken,cart.total,history]);
 
 
-const handleClick=(e)=>{
-  e.preventDefault()
-  clearCart(dispatch);
-}
+
 const handleButtonClick=(e)=>{
   e.preventDefault()
   addOrder(dispatch,{username,amount,userId});
@@ -226,10 +214,7 @@ return (
       <Title>Order Details</Title>
       <Top>
         
-        <TopTexts>
-          <TopText onClick={handleClick}>clear</TopText>
-          
-        </TopTexts>
+        
       </Top>
       <Bottom>
         <Info>
@@ -267,7 +252,7 @@ return (
           <SummaryTitle>ORDER DETAILS</SummaryTitle>
           <SummaryItem>
             <SummaryItemText>UserName</SummaryItemText>
-            <Input placeholder="username" onChange={(e)=>setUsername(e.target.value)}></Input>
+            <Input placeholder="username" onChange={(e)=>setUsername(e.target.value)}  required></Input>
           </SummaryItem>
           <SummaryItem>
             <SummaryItemText>Payment Date</SummaryItemText>

@@ -8,7 +8,6 @@ import {  useSelector } from "react-redux";
 import {  useDispatch } from "react-redux";
 
 import { clearCart } from "../redux/apiCalls";
-import {Link}from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
@@ -172,7 +171,19 @@ const Cart = () => {
   const dispatch=useDispatch();
   const history =useHistory();
   
-  
+  const handleCheckout=(e)=>{
+    e.preventDefault()
+    if(quantity)
+    {
+      history.push("/orderDetails")
+    }
+    else{
+      
+      alert("please add a product to move to checkout page")
+
+    }
+
+  }
 
 
   
@@ -250,9 +261,9 @@ const Cart = () => {
               <SummaryItemPrice>{cart.total}</SummaryItemPrice>
             </SummaryItem>
          
-              <Link to="/orderDetails">
-              <Button>GoTo CheckOut</Button>
-              </Link>
+              
+              <Button onClick={handleCheckout}>GoTo CheckOut</Button>
+              
               
           </Summary>
         </Bottom>
