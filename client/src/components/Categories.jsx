@@ -4,10 +4,10 @@ import { categories } from "../data";
 import CategoryItem from "./CategoryItem";
 
 const Container = styled.div`
-  flex-direction:left;
-padding: 10px;
+display: flex;
+justify-content: center;
 align-items: center;
-justify-content:center ; 
+flex-direction: column;
 padding : 20px;  
   
 

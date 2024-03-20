@@ -165,6 +165,7 @@ const Quantity=styled.span`
 
 
 const Cart = () => {
+  const user=useSelector((state)=>state.user.currentUser)
   const cart=useSelector(state=>state.cart);
   const quantity =useSelector(state=>state.cart.quantity)
 
@@ -172,18 +173,26 @@ const Cart = () => {
   const history =useHistory();
   
   const handleCheckout=(e)=>{
-    e.preventDefault()
-    if(quantity)
+    if(user)
     {
-      history.push("/orderDetails")
+      e.preventDefault()
+      if(quantity)
+      {
+        history.push("/orderDetails")
+      }
+      else{
+        
+        alert("please add a product to move to checkout page")
+  
+      }
+  
     }
-    else{
-      
-      alert("please add a product to move to checkout page")
 
+    else
+    {
+     alert("please login before checkout")
     }
-
-  }
+    }
 
 
   
@@ -205,7 +214,7 @@ const Cart = () => {
             <TopText onClick={handleClick}>clear</TopText>
             
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <TopButton type="filled" onClick={handleCheckout}>CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>

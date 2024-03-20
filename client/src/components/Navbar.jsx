@@ -6,11 +6,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link}from "react-router-dom";
 import { logOut } from "../redux/apiCalls";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-
+import { mobile } from "../responsive";
 
 
 const Container = styled.div`
   height: 60px;
+  ${mobile({ height: "50px" })}
+
   
 `;
 
@@ -19,7 +21,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+  ${mobile({ padding: "10px 0px" })}
 `;
 
 const Left = styled.div`
@@ -31,6 +33,7 @@ const Left = styled.div`
 const Language = styled.span`
   font-size: 14px;
   cursor: pointer;
+  ${mobile({ display: "none" })}
   
 `;
 
@@ -40,12 +43,14 @@ const SearchContainer = styled.div`
   align-items: center;
   margin-left: 25px;
   padding: 5px;
+  ${mobile({ marginLeft:"15px"})}
+
 `;
 
 const Input = styled.input`
   border: none;
   outline: none;
-  
+  ${mobile({ width: "40px" })}
   
 `;
 
@@ -54,10 +59,13 @@ const Center = styled.div`
   cursor: pointer;
   flex: 1;
   text-align: center;
+  ${mobile({ paddingLeft: "40px" })}
+
 `;
 
 const Logo = styled.h1`
   font-weight: bold;
+  ${mobile({ fontSize: "16px" })}
   
 `;
 const Right = styled.div`
@@ -65,14 +73,14 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
- 
+  ${mobile({ flex: 2, justifyContent: "center" })}
 `;
 
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
-  
+  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
 

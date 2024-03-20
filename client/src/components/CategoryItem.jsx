@@ -1,13 +1,14 @@
 import styled from "styled-components";
+import { mobile } from "../responsive";
 
 import {Link}from "react-router-dom";
 
 const Container = styled.div`
 display: flex;
-height: 70vh;
 margin-bottom:10px;
 position: relative;
-padding-bottom: 25px;
+
+z-index: 0;
 
 `;
 
@@ -15,14 +16,16 @@ padding-bottom: 25px;
 
 const Info = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
 flex-direction: column;
 align-items: center;
+z-index: 1;
+text-align: center;
+
+
 `;
 
 
@@ -57,21 +60,22 @@ margin-top: 10px;
 
 
 const Image = styled.img`
-  width: 1450px;
-  height: 600px;
+  width: 95vw;
+  height: 70vh;
   object-fit: cover;
-  
-  padding: 10px 5px;
+  padding: 5px;
   margin-bottom: 10px;
-  padding-left: 20px ;
   
 
 `;
 const Title = styled.h1`
-   font-size: 60px;
+font-size: 60px;
 font-weight: 600;
 color: #ffffff;
 margin-bottom: 10px;
+${mobile({ fontSize: "45px" })}
+
+
 `;
 
 const CategoryItem = ({ item }) => {

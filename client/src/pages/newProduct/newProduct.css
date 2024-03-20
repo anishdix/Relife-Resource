@@ -16,6 +16,9 @@
   font-size: 24px;
   gap: 40px;
 }
+.addProductTitle{
+  text-align: center;
+}
 
 .addProductForm {
   background-color: #fff;
@@ -44,6 +47,7 @@
 }
 
 .addProductItem > input {
+ 
   padding: 10px;
   border-radius: 8px;
 }
@@ -83,4 +87,25 @@
 }
 input[type="file"] {
   display: none;
+}
+
+
+@media only screen and (max-width: 550px) {
+  .addProductForm{
+    width: 400px;
+  }
+  input {
+    margin-left: 10vw;
+    width: 300px;
+  }
+  .addProductItem > select
+  {
+    margin-left: 10vw;
+    width: 315px;
+  }
+  .custom-file-label
+  {
+    margin-left: 10vw;
+    width: 300px;
+  }
 }

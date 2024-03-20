@@ -5,11 +5,12 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { useEffect,useState } from "react";
-import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { publicRequest } from "../requestMethods";
 import { clearCart } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartRedux";
+import { mobile } from "../responsive";
 
 
 
@@ -18,7 +19,7 @@ const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
-  
+  ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
 
 const ImgContainer = styled.div`
@@ -29,15 +30,17 @@ const Image = styled.img`
 max-width: 1000px;
 max-height: 600px;
   width: 100%;
-  height: 100%;
+  height: 90vh;
   object-fit: contain;
-  
+  ${mobile({ height: "40vh" })}
+
 `;
 
 const InfoContainer = styled.div`
   flex:1;
   padding: 0px 50px;
-  
+  ${mobile({ padding: "10px" })}
+
 `;
 
 const Title = styled.h1`
@@ -69,7 +72,8 @@ const AddContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+  ${mobile({ width: "100%" })}
+
 `;
 
 const AmountContainer = styled.div`
@@ -110,6 +114,7 @@ const Product = () => {
   const [product,setProduct]=useState({});
   const [quantity,setQuantity]=useState(1);
   const dispatch=useDispatch();
+  const history =useHistory();
   
   
   
@@ -143,6 +148,7 @@ const Product = () => {
 
  const handleClick=()=>{
     dispatch(addProduct({...product,quantity}));
+    history.push("/cart")
     console.log(product)
   };
   
