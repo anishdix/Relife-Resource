@@ -5,7 +5,7 @@ import {
   ShoppingCartOutlined,
 } from "@material-ui/icons";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+
 
 const Info = styled.div`
   opacity: 0;

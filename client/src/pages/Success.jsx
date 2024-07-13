@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import { clearCart } from "../redux/apiCalls";
-import { Link, useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min"
+import {  useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min"
 import styled from "styled-components"
 
 const Container=styled.div`

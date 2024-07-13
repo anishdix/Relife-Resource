@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { useEffect, useRef, useState } from "react";
 import { login } from "../redux/apiCalls";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 

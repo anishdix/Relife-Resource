@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom/cjs/react-router-dom.min"
+import { Link } from "react-router-dom/cjs/react-router-dom.min"
 import styled from "styled-components"
 
 const Container=styled.div`
@@ -43,7 +43,6 @@ const Logout = () => {
   
   
 
-    const location=useLocation()
     
   return (
     <Container>

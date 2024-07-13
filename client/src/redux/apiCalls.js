@@ -6,7 +6,7 @@ import{addOrderFailure,addOrderStart,addOrderSuccess} from"./orderRedux"
  import { addProductFailure, addProductStart, addProductSuccess } from "./productRedux"
 import { clear } from "./cartRedux";
 
-const URL="https://relife-resource.onrender.com/api/";
+// const URL="https://relife-resource.onrender.com/api/";
 export const login=async(dispatch,user)=>{
     dispatch(loginStart());
     try{

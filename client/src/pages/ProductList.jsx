@@ -51,7 +51,7 @@ font-weight: 700;
 const ProductList = () => {
   const location=useLocation();
   const cat=location.pathname.split("/")[2]
-  const[filters,setFilters]=useState({})
+  // const[filters,setFilters]=useState({})
   const[sort,setSort]=useState("newest")
   
   
@@ -85,7 +85,7 @@ const ProductList = () => {
 
 
       
-      <Products cat={cat} filters={filters} sort={sort}/>
+      <Products cat={cat} filters={{}} sort={sort}/>
       <Newsletter />
       <Footer />
     </Container>

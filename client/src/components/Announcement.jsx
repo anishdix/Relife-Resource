@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const Announcement = () => {
   return <Container>
-  FLASH SALE!! FREE SHIPPING ON FIRST ORDER
+  FLASH SALE!! FREE SHIPPING ON FIRST ORDER 
 </Container>;
 };
 
