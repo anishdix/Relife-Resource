@@ -1,19 +1,17 @@
-
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-import {  useSelector } from "react-redux";
-import {  useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
-import { useState } from "react";
-import { useEffect } from "react";
-import {userRequest}from"../requestMethods"
- import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+// import { useHistory } from "react-router-dom";
+import { userRequest } from "../requestMethods";
 import { addOrder } from "../redux/apiCalls";
+import { useNavigate } from "react-router-dom";
 
-const KEY=process.env.REACT_APP_STRIPE;
+const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div``;
 
@@ -32,19 +30,12 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  
 `;
-
-
-
-
-
 
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   ${mobile({ flexDirection: "column" })}
-
 `;
 
 const Info = styled.div`
@@ -77,10 +68,6 @@ const Details = styled.div`
 const ProductName = styled.span``;
 
 const ProductId = styled.span``;
-
-
-
-
 
 const PriceDetail = styled.div`
   flex: 1;
@@ -130,18 +117,15 @@ const SummaryItem = styled.div`
   margin: 30px 0px;
   display: flex;
   justify-content: space-between;
-  
   font-weight: ${(props) => props.type === "total" && "500"};
   font-size: ${(props) => props.type === "total" && "24px"};
 `;
 
 const SummaryItemText = styled.span`
-margin-top:10px
+  margin-top: 10px;
 `;
 
 const SummaryItemPrice = styled.span``;
-
-
 
 const Button = styled.button`
   width: 100%;
@@ -150,137 +134,120 @@ const Button = styled.button`
   color: white;
   font-weight: 600;
 `;
+
 const Input = styled.input`
   width: 200px;
-  height:30px;
-  padding-left:10px;
-  
+  height: 30px;
+  padding-left: 10px;
 `;
 
 const Order = () => {
- 
-    const CurrDate = new Date().toLocaleDateString();
-    
-    
-const cart=useSelector(state=>state.cart);
-const userId=useSelector(state=>state.user.currentUser._id)
-const[stripeToken,setStripeToken]=useState(null);
-const history =useHistory();
-const[username,setUsername]=useState("");
+  const CurrDate = new Date().toLocaleDateString();
+  
+  const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user.currentUser);
+  const [stripeToken, setStripeToken] = useState(null);
+  const history = useNavigate();
+  const [username, setUsername] = useState("");
+  const dispatch = useDispatch();
+  const amount = cart.total;
 
-const dispatch=useDispatch();
-const amount=useSelector(state=>state.cart.total);
-console.log(userId)
-
-
-
-
-const onToken=(token)=>{
-  setStripeToken(token);
-   
-};
-
- 
-useEffect(()=>{
-  const makeRequest=async()=>{
-    try{
-      const res=await userRequest.post("/checkout/payment",{
-        tokenId:stripeToken.id,
-        amount:cart.total,
-      });
-      history.push("/success",{data:res.data});
-      console.log(res)
-
-      
-
-      
-
-    }catch(err){console.log(err)}
+  const onToken = (token) => {
+    setStripeToken(token);
   };
-   stripeToken && makeRequest();
-},[stripeToken,cart.total,history]);
 
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest().post("/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: cart.total,
+        });
+        history("/success", { data: res.data });
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    stripeToken && makeRequest();
+  }, [stripeToken, cart.total, history]);
 
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    addOrder(dispatch, { username, amount, userId: user._id });
+  };
 
-const handleButtonClick=(e)=>{
-  e.preventDefault()
-  addOrder(dispatch,{username,amount,userId});
-}
-return (
-  <Container>
-    <Navbar />
-    <Announcement />
-    <Wrapper>
-      <Title>Order Details</Title>
-      <Top>
-        
-        
-      </Top>
-      <Bottom>
-        <Info>
-          
-          {cart.products.map((product)=>(
-          <Product key={product._id}>
-            <ProductDetail>
-              <Image src={product.img}/>
-              <Details>
-                <ProductName>
-                  <b>Product:</b> {product.title}
-                </ProductName>
-                <ProductId >
-                  <b>ID:</b> {product._id}
-                </ProductId>
-                
-                
-              </Details>
-            </ProductDetail>
-            <PriceDetail>
-              <ProductAmountContainer>
-              <b>Quantity:</b>
-                <ProductAmount>{product.quantity}</ProductAmount>
-                
-              </ProductAmountContainer>
-              <ProductPrice>
-                {product.price*product.quantity}
-                </ProductPrice>
-            </PriceDetail>
-          </Product> ))}
-          <Hr />
-          
-        </Info>
-        <Summary>
-          <SummaryTitle>ORDER DETAILS</SummaryTitle>
-          <SummaryItem>
-            <SummaryItemText>UserName</SummaryItemText>
-            <Input placeholder="username" onChange={(e)=>setUsername(e.target.value)}  required></Input>
-          </SummaryItem>
-          <SummaryItem>
-            <SummaryItemText>Payment Date</SummaryItemText>
-            <SummaryItemPrice> {CurrDate}</SummaryItemPrice>
-          </SummaryItem>
-          
-          <SummaryItem type="total">
-            <SummaryItemText>Total</SummaryItemText>
-            <SummaryItemPrice>{cart.total}₹</SummaryItemPrice>
-          </SummaryItem>
-          <StripeCheckout
-          name="Relife Resources"
-          image="https://static.tumblr.com/38326fc3641aa6ea8785f5cf219355a3/4jhnxeu/lRimzwx7x/tumblr_static_fbprofile_relife.png"
-          billingAddress
-          shippingAddress
-          description={`your total is ${cart.total}rs`}
-          amount={cart.total*1.21}
-          token={onToken}
-          stripeKey={KEY}>
-            
-            <Button onClick={handleButtonClick}>PAYMENT</Button>
+  return (
+    <Container>
+      <Navbar />
+      <Announcement />
+      <Wrapper>
+        <Title>Order Details</Title>
+        <Top></Top>
+        <Bottom>
+          <Info>
+            {cart.products.map((product) => (
+              <Product key={product._id}>
+                <ProductDetail>
+                  <Image src={product.img} />
+                  <Details>
+                    <ProductName>
+                      <b>Product:</b> {product.title}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b> {product._id}
+                    </ProductId>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <b>Quantity:</b>
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                  </ProductAmountContainer>
+                  <ProductPrice>
+                    {product.price * product.quantity}
+                  </ProductPrice>
+                </PriceDetail>
+              </Product>
+            ))}
+            <Hr />
+          </Info>
+          <Summary>
+            <SummaryTitle>ORDER DETAILS</SummaryTitle>
+            <SummaryItem>
+              <SummaryItemText>UserName</SummaryItemText>
+              <Input
+                placeholder="username"
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              ></Input>
+            </SummaryItem>
+            <SummaryItem>
+              <SummaryItemText>Payment Date</SummaryItemText>
+              <SummaryItemPrice> {CurrDate}</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem type="total">
+              <SummaryItemText>Total</SummaryItemText>
+              <SummaryItemPrice>{cart.total}₹</SummaryItemPrice>
+            </SummaryItem>
+            <StripeCheckout
+              name="Relife Resources"
+              image="https://static.tumblr.com/38326fc3641aa6ea8785f5cf219355a3/4jhnxeu/lRimzwx7x/tumblr_static_fbprofile_relife.png"
+              billingAddress
+              shippingAddress
+              description={`Your total is ${cart.total}rs`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button onClick={handleButtonClick}>PAYMENT</Button>
             </StripeCheckout>
-            
-        </Summary>
-      </Bottom>
-    </Wrapper>
-    <Footer />
-  </Container>
-);
+          </Summary>
+        </Bottom>
+      </Wrapper>
+      <Footer />
+    </Container>
+  );
 };
-export default Order
+
+export default Order;

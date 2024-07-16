@@ -2,16 +2,31 @@ import axios from "axios";
 
 const BASE_URL = "https://relife-resource.onrender.com/api/";
 
-
-const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
-const currentUser = user && JSON.parse(user).currentUser;
-const TOKEN = currentUser?.accessToken;
-
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
 });
 
-export const userRequest = axios.create({
-  baseURL: BASE_URL,
-  header: { token: `Bearer ${TOKEN}` },
-});
+export const userRequest = () => {
+  let token = null;
+
+  // Check if "persist:root" is available in localStorage
+  const persistRoot = localStorage.getItem("persist:root");
+  if (persistRoot) {
+    try {
+      const persistRootParsed = JSON.parse(persistRoot);
+      if (persistRootParsed.user) {
+        const user = JSON.parse(persistRootParsed.user);
+        token = user?.currentUser?.accessToken || null;
+      }
+    } catch (error) {
+      console.error("Error parsing token from localStorage", error);
+    }
+  }
+
+  console.log(token, "token");
+
+  return axios.create({
+    baseURL: BASE_URL,
+    headers: { token: `Bearer ${token}` },
+  });
+};

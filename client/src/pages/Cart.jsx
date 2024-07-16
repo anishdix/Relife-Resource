@@ -8,7 +8,8 @@ import {  useSelector } from "react-redux";
 import {  useDispatch } from "react-redux";
 
 import { clearCart } from "../redux/apiCalls";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useNavigate } from "react-router-dom";
+// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
 
@@ -170,7 +171,7 @@ const Cart = () => {
   const quantity =useSelector(state=>state.cart.quantity)
 
   const dispatch=useDispatch();
-  const history =useHistory();
+  const history=useNavigate();
   
   const handleCheckout=(e)=>{
     if(user)
@@ -178,7 +179,7 @@ const Cart = () => {
       e.preventDefault()
       if(quantity)
       {
-        history.push("/orderDetails")
+        history("/orderDetails")
       }
       else{
         
@@ -207,7 +208,7 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton onClick={((e)=>{history.push("/")})}>CONTINUE SHOPPING</TopButton>
+          <TopButton onClick={((e)=>{history("/")})}>CONTINUE SHOPPING</TopButton>
           <TopTexts>
             <TopText>Shopping Bag({quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>

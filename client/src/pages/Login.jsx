@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import { login } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useNavigate } from "react-router-dom";
+// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
 const Container = styled.div`
@@ -80,7 +81,7 @@ const Login = () => {
   const[password,setPassword]=useState("");
   const[message,setMessage]=useState("")
   const dispatch=useDispatch();
-  const history =useHistory();
+  const history =useNavigate();
 
   useEffect(()=>{
     userRef.current.focus()
@@ -97,7 +98,7 @@ const Login = () => {
     e.preventDefault()  
     try{
       await login(dispatch,{password,username})
-      history.push("/")
+      history("/")
 
     }catch(err)
     {
@@ -114,7 +115,7 @@ const Login = () => {
     
   }
   const handleCreate=(e)=>{
-    history.push("/register");
+    history("/register");
 
   }
 

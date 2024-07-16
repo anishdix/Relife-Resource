@@ -9,7 +9,10 @@ import {
 import app from "../../firebase";
 import { addProduct } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar";
+import Announcement from "../../components/Announcement";
+// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
 export default function NewProduct() {
@@ -17,7 +20,7 @@ export default function NewProduct() {
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState([]);
   const dispatch = useDispatch();
-  const history =useHistory();
+  const history =useNavigate();
 
 
   const handleChange = (e) => {
@@ -31,6 +34,17 @@ export default function NewProduct() {
 
   const handleClick = (e) => {
     e.preventDefault();
+
+    const token = JSON.parse(localStorage.getItem("persist:root"))?.user
+    ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser?.accessToken
+    : null;
+
+  if (!token) {
+    alert("Please log in first to add a product.");
+    return;
+  }
+
+
     const fileName = new Date().getTime() + file.name;
     const storage = getStorage(app);
     const storageRef = ref(storage, fileName);
@@ -72,13 +86,17 @@ export default function NewProduct() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = { ...inputs, img: downloadURL, categories: cat };
           addProduct(product, dispatch);
-          history.push("/productAdded");
+          history("/productAdded");
         });
       }
     );
   };
-console.log(file);
+// console.log(file);
   return (
+    <div>
+
+      <Navbar/>
+      <Announcement/>
     <div className="newProduct">
       <h1 className="addProductTitle">Add Your Product</h1>
       <form className="addProductForm">
@@ -89,7 +107,7 @@ console.log(file);
             id="file"
             onChange={(e) => setFile(e.target.files[0])}
             required
-          />
+            />
           <label htmlFor="file" class="custom-file-label">Choose File</label>
 
         </div>
@@ -101,7 +119,7 @@ console.log(file);
             placeholder="Product Title"
             onChange={handleChange}
             required
-          />
+            />
         </div>
         <div className="addProductItem">
           <label>Description</label>
@@ -111,7 +129,7 @@ console.log(file);
             placeholder="description..."
             onChange={handleChange}
             required
-          />
+            />
         </div>
         <div className="addProductItem">
           <label>Price</label>
@@ -121,7 +139,7 @@ console.log(file);
             placeholder="100"
             onChange={handleChange}
             required
-          />
+            />
         </div>
         <div className="addProductItem">
           <label>Categories</label>
@@ -139,5 +157,6 @@ console.log(file);
         </button>
       </form>
     </div>
+            </div>
   );
 }

@@ -9,7 +9,7 @@ import { deleteProduct, getProducts } from "../../redux/apiCalls";
 export default function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
-  console.log(products)
+  // console.log(products)
 
   useEffect(() => {
     getProducts(dispatch);

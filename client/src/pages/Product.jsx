@@ -5,12 +5,14 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { useEffect,useState } from "react";
-import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
+// import { useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { publicRequest } from "../requestMethods";
 import { clearCart } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartRedux";
 import { mobile } from "../responsive";
+import { useNavigate,useLocation } from "react-router-dom";
+
 
 
 
@@ -114,7 +116,7 @@ const Product = () => {
   const [product,setProduct]=useState({});
   const [quantity,setQuantity]=useState(1);
   const dispatch=useDispatch();
-  const history =useHistory();
+  const history =useNavigate();
   
   
   
@@ -148,7 +150,7 @@ const Product = () => {
 
  const handleClick=()=>{
     dispatch(addProduct({...product,quantity}));
-    history.push("/cart")
+    history("/cart")
     console.log(product)
   };
   

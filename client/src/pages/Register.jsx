@@ -4,7 +4,8 @@ import { mobile } from "../responsive";
 import { addUser } from "../redux/apiCalls";
 import { useDispatch ,} from "react-redux";
 import { useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useNavigate } from "react-router-dom";
+// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
 
@@ -75,7 +76,7 @@ const Register = () => {
   const[password,setPassword]=useState("");
   const[error,setError]=useState("")
   const dispatch=useDispatch();
-  const history =useHistory();
+  const history =useNavigate();
   
 
   const handleSubmit=(e)=>{
@@ -89,7 +90,7 @@ const Register = () => {
       addUser(dispatch,{username,password,email})
       // login(dispatch,{username,password})
       // logOut(dispatch);
-      history.push("/login");
+      history("/login");
 
     }
   }

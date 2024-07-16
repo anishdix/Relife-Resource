@@ -22,15 +22,15 @@ export const login=async(dispatch,user)=>{
     }
 };
 //Add Product
-export const addProduct=async(product,dispatch)=>{
-    dispatch(addProductStart());
-    try{
-        const res=await userRequest.post(`/products`, product );
-        dispatch(addProductSuccess(res.data));
-
-    }catch(err){
-        dispatch(addProductFailure());
-    }
+export const addProduct = async (product, dispatch) => {
+  dispatch(addProductStart());
+  try {
+    const res = await userRequest().post(`/products`, product);
+    dispatch(addProductSuccess(res.data));
+  } catch (err) {
+    dispatch(addProductFailure());
+    throw err; // Re-throw the error to be caught in handleClick
+  }
 };
 //Add User
 export const addUser=async(dispatch,user)=>{
@@ -38,7 +38,7 @@ export const addUser=async(dispatch,user)=>{
     try{
         const res=await publicRequest.post("auth/register", user );
         dispatch(addUserSuccess(res.data));
-        console.log(res)
+        // console.log(res)
 
     }catch(err){
         console.log(err,"error occured")

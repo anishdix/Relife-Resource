@@ -3,9 +3,9 @@ import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {Link}from "react-router-dom";
+import {Link, useNavigate}from "react-router-dom";
 import { logOut } from "../redux/apiCalls";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 import { mobile } from "../responsive";
 
 
@@ -91,15 +91,15 @@ const Navbar = () => {
   
   
   const dispatch=useDispatch();
-   const history =useHistory();
+   const history =useNavigate();
   
   const handleClick=(e)=>{
     e.preventDefault()
     logOut(dispatch);
-    history.push("/logout");
+    history("/logout");
   };
   const handleLogo=()=>{
-    history.push("/")
+    history("/")
   }
 
   return (

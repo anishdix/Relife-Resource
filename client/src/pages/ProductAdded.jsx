@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom/cjs/react-router-dom.min"
+import { Link, } from "react-router-dom"
 import styled from "styled-components"
 
 const Container=styled.div`
@@ -43,8 +43,8 @@ const Success = () => {
   
   
 
-    const location=useLocation()
-    console.log(location)
+    // const location=useLocation()
+    // console.log(location)
   return (
     <Container>
       <MsgText>   PRODUCT ADDED </MsgText> 

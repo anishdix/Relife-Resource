@@ -73,6 +73,7 @@ font-size: 60px;
 font-weight: 600;
 color: #ffffff;
 margin-bottom: 10px;
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 ${mobile({ fontSize: "45px" })}
 
 

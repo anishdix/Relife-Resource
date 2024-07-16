@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux"
 import { clearCart } from "../redux/apiCalls";
-import {  useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min"
+// import {  useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min"
 import styled from "styled-components"
+import {  useNavigate } from "react-router-dom";
 
 const Container=styled.div`
  height: 850px;
@@ -45,13 +46,13 @@ const Success = () => {
   
   
   const dispatch=useDispatch();
-  const history =useHistory();
-    const location=useLocation()
-    console.log(location)
+  const history =useNavigate();
+    // const location=useLocation()
+    // console.log(location)
     const handleClick=(e) => {
       e.preventDefault()
     clearCart(dispatch);
-    history.push("/")
+    history("/")
 
     }
   return (
