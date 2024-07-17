@@ -79,7 +79,7 @@ const Register = () => {
   const history =useNavigate();
   
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault()   //used to stop refreshing the page
     if(password.length<=7)
     {
@@ -87,10 +87,16 @@ const Register = () => {
     }
     else
     {
-      addUser(dispatch,{username,password,email})
+      try{
+        await addUser(dispatch,{username,password,email})
+        history("/login");
+
+      }catch(err){
+        setError(err.message)
+
+      }
       // login(dispatch,{username,password})
       // logOut(dispatch);
-      history("/login");
 
     }
   }

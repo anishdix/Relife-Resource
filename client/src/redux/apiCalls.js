@@ -43,6 +43,7 @@ export const addUser=async(dispatch,user)=>{
     }catch(err){
         console.log(err,"error occured")
         dispatch(addUserFailure());
+        throw new Error(err.response.data.error)
     }
 };
 //Add Order

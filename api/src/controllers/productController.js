@@ -8,9 +8,21 @@ exports.createProduct = asyncHandler(async (req, res) => {
 });
 
 exports.getProducts = asyncHandler(async (req, res) => {
-  const products = await productService.getProducts(req.query);
-  res.status(200).json(new ApiResponse(200, products, 'Products retrieved successfully'));
-});
+  const { new: qNew, category } = req.query;
+  // console.log(category)
+  if(category)
+  {
+    const products = await productService.getProductsByCategory({ category });
+    res.status(200).json(new ApiResponse(200, products, 'Products retrieved successfully'));
+  }
+  else{
+    const products = await productService.getProducts({ category });
+    res.status(200).json(new ApiResponse(200, products, 'Products retrieved successfully'));
+  }
+}
+  
+  
+);
 
 exports.getProductById = asyncHandler(async (req, res) => {
   const product = await productService.getProductById(req.params.id);

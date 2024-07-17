@@ -18,26 +18,15 @@ const Products = ({ cat, filters, sort }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
+    let url = "http://localhost:3000/";
     const getProducts = async () => {
       setIsLoading(true);
       try {
-        const res = await axios.get(
-          cat
-            ? `https://relife-resource.onrender.com/api/products?category=${cat}`
-            : "https://relife-resource.onrender.com/api/products"
-        );
-        
-        if (Array.isArray(res.data)) {
-          setProducts(res.data);
-        } else if (res.data && Array.isArray(res.data.data)) {
-          setProducts(res.data.data);
-        } else {
-          console.error("Unexpected data structure:", res.data);
-          setProducts([]);
-        }
+        const res = await axios.get(cat ? `${url}api/products?category=${cat}` : `${url}api/products`);
+        console.log("API Response:", res.data);
+        setProducts(res.data.data);
       } catch (err) {
         console.error(err);
-        setProducts([]);
       }
       setIsLoading(false);
     };
@@ -45,28 +34,33 @@ const Products = ({ cat, filters, sort }) => {
   }, [cat]);
 
   useEffect(() => {
-    if (cat) {
-      setFilteredProducts(
-        products.filter((item) =>
-          Object.entries(filters).every(([key, value]) =>
-            item[key] ? item[key].includes(value) : false
-          )
+    console.log("Filters:", filters);
+    console.log("Products:", products);
+
+    if (cat && filters) {
+      const filtered = products.filter(item => 
+        Object.entries(filters).every(([key, value]) => 
+          item[key]?.includes(value)  // Optional chaining to handle undefined values
         )
       );
+      console.log("Filtered Products:", filtered);
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts(products);
     }
   }, [products, cat, filters]);
 
   useEffect(() => {
     if (sort === "newest") {
-      setFilteredProducts((prev) =>
+      setFilteredProducts(prev =>
         [...prev].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       );
     } else if (sort === "asc") {
-      setFilteredProducts((prev) =>
+      setFilteredProducts(prev =>
         [...prev].sort((a, b) => a.price - b.price)
       );
-    } else {
-      setFilteredProducts((prev) =>
+    } else if (sort === "desc") {
+      setFilteredProducts(prev =>
         [...prev].sort((a, b) => b.price - a.price)
       );
     }
@@ -86,21 +80,18 @@ const Products = ({ cat, filters, sort }) => {
           <CircularProgress size={30} />
           <h4> Loading Products... </h4>
         </Box>
-      ) : cat ? (
-        filteredProducts.length > 0 ? (
-          filteredProducts.map((item) => (
-            <Product item={item} key={item._id} />
-          ))
-        ) : (
-          <p>No products found.</p>
-        )
-      ) : products.length > 0 ? (
-        products.map((item) => <Product item={item} key={item._id} />)
+      ) : filteredProducts.length > 0 ? (
+        filteredProducts.map((item) => (
+          <Product item={item} key={item._id} />
+        ))
       ) : (
-        <p>No products available.</p>
+        <p>No products found.</p>
       )}
     </Container>
   );
 };
+
+  
+
 
 export default Products;

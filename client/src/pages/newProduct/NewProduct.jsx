@@ -36,9 +36,9 @@ export default function NewProduct() {
     e.preventDefault();
 
     const token = JSON.parse(localStorage.getItem("persist:root"))?.user
-    ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser?.accessToken
+    ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser?.data?.token
     : null;
-
+    console.log(token,"token")
   if (!token) {
     alert("Please log in first to add a product.");
     return;
