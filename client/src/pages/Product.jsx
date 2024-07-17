@@ -124,9 +124,12 @@ const Product = () => {
     const getProduct=async()=>{
       try{
 
-        const res = await publicRequest.get("/products/find/"+id)
-        setProduct(res.data);
-      }catch(err){}
+        const res = await publicRequest.get("/products/"+id)
+        setProduct(res.data.data);
+        // console.log(product,"product")
+      }catch(err){
+        console.log(err)
+      }
     };
     getProduct();
   },[id]);

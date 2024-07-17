@@ -133,6 +133,7 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const Input = styled.input`
@@ -161,7 +162,7 @@ const Order = () => {
       try {
         const res = await userRequest().post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: cart.total,
+          amount: cart.total
         });
         history("/success", { data: res.data });
         console.log(res);

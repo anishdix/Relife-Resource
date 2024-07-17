@@ -12,12 +12,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //  import { useSelector } from "react-redux";
 import Order from "./pages/Order";
 import Logout from "./pages/Logout";
+import ScrollToTop from "./components/ScrollToTop";
 
 
 const App = () => {
   //  const user=useSelector((state)=>state.user.currentUser);
   return (
     <Router>
+      <ScrollToTop/>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
