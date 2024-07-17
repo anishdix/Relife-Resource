@@ -179,7 +179,7 @@ const Cart = () => {
       e.preventDefault()
       if(quantity)
       {
-        history("/orderDetails")
+        history("/order-details")
       }
       else{
         
