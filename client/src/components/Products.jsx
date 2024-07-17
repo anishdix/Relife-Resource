@@ -18,12 +18,12 @@ const Products = ({ cat, filters, sort }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    let url = "http://localhost:3000/";
+    let url = "https://relife-resource.onrender.com/";
     const getProducts = async () => {
       setIsLoading(true);
       try {
         const res = await axios.get(cat ? `${url}api/products?category=${cat}` : `${url}api/products`);
-        console.log("API Response:", res.data);
+        // console.log("API Response:", res.data);
         setProducts(res.data.data);
       } catch (err) {
         console.error(err);
@@ -34,13 +34,12 @@ const Products = ({ cat, filters, sort }) => {
   }, [cat]);
 
   useEffect(() => {
-    console.log("Filters:", filters);
-    console.log("Products:", products);
+   
 
     if (cat && filters) {
       const filtered = products.filter(item => 
         Object.entries(filters).every(([key, value]) => 
-          item[key]?.includes(value)  // Optional chaining to handle undefined values
+          item[key]?.includes(value)  
         )
       );
       console.log("Filtered Products:", filtered);
