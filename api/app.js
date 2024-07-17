@@ -1,12 +1,12 @@
 const express = require('express');
 const cors = require('cors');
-const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoutes');
-const productRoutes = require('./routes/productRoutes');
-const cartRoutes = require('./routes/cartRoutes');
-const orderRoutes = require('./routes/orderRoutes');
-const stripeRoutes = require('./routes/stripeRoutes');
-const errorHandler = require('./middlewares/errorHandler');
+const authRoutes = require("./src/routes/authRoutes");
+const userRoutes = require('./src/routes/userRoutes');
+const productRoutes = require('./src/routes/productRoutes');
+const cartRoutes = require('./src/routes/cartRoutes');
+const orderRoutes = require('./src/routes/orderRoutes');
+const stripeRoutes = require('./src/routes/stripeRoutes');
+const errorHandler = require('./src/middlewares/errorHandler');
 
 const app = express();
 
