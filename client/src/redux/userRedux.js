@@ -31,7 +31,7 @@ const userSlice = createSlice({
       state.isFetching = false;
       state.currentUser = action.payload;
       state.error = false;
-      state.products.push(action.payload);
+      // state.products.push(action.payload);
       state.isAdmin = false;
     },
     addUserFailure: (state) => {

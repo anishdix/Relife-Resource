@@ -98,6 +98,7 @@ const Login = () => {
     e.preventDefault()  
     try{
       await login(dispatch,{password,username})
+      
       history("/")
 
     }catch(err)

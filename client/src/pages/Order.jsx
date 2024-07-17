@@ -162,7 +162,7 @@ const Order = () => {
       try {
         const res = await userRequest().post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: cart.total
+          amount: cart.total*100
         });
         history("/success", { data: res.data });
         console.log(res);

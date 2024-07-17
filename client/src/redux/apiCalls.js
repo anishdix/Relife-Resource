@@ -33,19 +33,24 @@ export const addProduct = async (product, dispatch) => {
   }
 };
 //Add User
-export const addUser=async(dispatch,user)=>{
+export const addUser = async (dispatch, user) => {
     dispatch(addUserStart());
-    try{
-        const res=await publicRequest.post("auth/register", user );
+    try {
+      const res = await publicRequest.post("auth/register", user);
+      console.log('Response:', res); // Log the entire response
+  
+      if (res.status === 201) { // Check specifically for 201 Created status
         dispatch(addUserSuccess(res.data));
-        // console.log(res)
-
-    }catch(err){
-        console.log(err,"error occured")
-        dispatch(addUserFailure());
-        throw new Error(err.response.data.error)
+      } else {
+        console.error('Unexpected status code:', res.status);
+        throw new Error('Unexpected response status');
+      }
+    } catch (err) {
+      console.error('Error occurred:', err); // Log the entire error
+      dispatch(addUserFailure());
+      throw new Error(err.response?.data?.error || 'An error occurred');
     }
-};
+  };
 //Add Order
 export const addOrder=async(dispatch,order)=>{
     dispatch(addOrderStart());

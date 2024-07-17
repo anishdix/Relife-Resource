@@ -89,6 +89,7 @@ const Register = () => {
     {
       try{
         await addUser(dispatch,{username,password,email})
+        setError("")
         history("/login");
 
       }catch(err){
