@@ -6,7 +6,7 @@ exports.createPayment = async (tokenId, amount) => {
     const payment = await stripe.charges.create({
       source: tokenId,
       amount: amount,
-      currency: 'usd',
+      currency: 'inr',
     });
     return payment;
   } catch (error) {

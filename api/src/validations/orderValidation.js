@@ -10,7 +10,9 @@ const createOrder = Joi.object({
     })
   ).required(),
   amount: Joi.number().required(),
-  address: Joi.object().required(),
+  address: Joi.object().default({
+    city:"mangalore"
+  }),
   status: Joi.string().valid('pending', 'shipped', 'delivered', 'cancelled').default('pending')
 });
 

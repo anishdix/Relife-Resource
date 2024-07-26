@@ -2,7 +2,12 @@ const Order = require('../models/Order');
 const ApiError = require('../utils/apiError');
 
 exports.createOrder = async (orderData) => {
-  return Order.create(orderData);
+  
+ 
+    const order = await Order.create(orderData);
+    // console.log('Order created successfully:', JSON.stringify(order, null, 2));
+    return order;
+  
 };
 
 exports.getOrders = async (query) => {

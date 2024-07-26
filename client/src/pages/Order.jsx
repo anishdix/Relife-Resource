@@ -7,7 +7,7 @@ import { mobile } from "../responsive";
 import { useSelector, useDispatch } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 // import { useHistory } from "react-router-dom";
-import { userRequest } from "../requestMethods";
+import {  userRequest } from "../requestMethods";
 import { addOrder } from "../redux/apiCalls";
 import { useNavigate } from "react-router-dom";
 
@@ -146,10 +146,10 @@ const Order = () => {
   const CurrDate = new Date().toLocaleDateString();
   
   const cart = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.user.currentUser.data.user);
   const [stripeToken, setStripeToken] = useState(null);
   const history = useNavigate();
-  const [username, setUsername] = useState("");
+  const [address, setAddress] = useState("");
   const dispatch = useDispatch();
   const amount = cart.total;
 
@@ -162,22 +162,28 @@ const Order = () => {
       try {
         const res = await userRequest().post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: cart.total
+          amount: cart.total * 100
         });
-        history("/success", { data: res.data });
-        console.log(res);
+        
+        // Dispatch addOrder action before navigating
+        await addOrder(dispatch, { address, amount, userId: user._id, products: cart.products });
+        
+        // Navigate to success page
+        history("/success", { state: res.data });
       } catch (err) {
         console.log(err);
       }
     };
     stripeToken && makeRequest();
-  }, [stripeToken, cart.total, history]);
+  }, [stripeToken, cart.total, history, dispatch, address, amount, user._id, cart.products]);
 
   const handleButtonClick = (e) => {
+    // console.log(KEY,"key")
     e.preventDefault();
-    addOrder(dispatch, { username, amount, userId: user._id });
+    // console.log(user,"user")
+    // addOrder(dispatch, { address, amount, userId: user._id ,products:cart.products });
   };
-
+  
   return (
     <Container>
       <Navbar />
@@ -216,10 +222,10 @@ const Order = () => {
           <Summary>
             <SummaryTitle>ORDER DETAILS</SummaryTitle>
             <SummaryItem>
-              <SummaryItemText>UserName</SummaryItemText>
+              <SummaryItemText>Address</SummaryItemText>
               <Input
-                placeholder="username"
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Address"
+                onChange={(e) => setAddress(e.target.value)}
                 required
               ></Input>
             </SummaryItem>
@@ -238,6 +244,7 @@ const Order = () => {
               shippingAddress
               description={`Your total is ${cart.total}rs`}
               amount={cart.total * 100}
+              currency="INR"
               token={onToken}
               stripeKey={KEY}
             >

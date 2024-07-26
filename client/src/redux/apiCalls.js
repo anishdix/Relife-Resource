@@ -51,18 +51,37 @@ export const addUser = async (dispatch, user) => {
       throw new Error(err.response?.data?.error || 'An error occurred');
     }
   };
-//Add Order
-export const addOrder=async(dispatch,order)=>{
+  //Add Order
+  export const addOrder = async (dispatch, order) => {
+    const { userId, amount, products,address } = order;
+    
+    //filter
+    const formattedProducts = products.map(product => ({
+      productId: product._id,
+      quantity: product.quantity
+    }));
+  
+    
+    const orderData = {
+      userId,
+      products: formattedProducts,
+      amount,
+      address: {
+        city: address 
+      }
+    };
+  
+    console.log("Formatted order data:", orderData);
+  
     dispatch(addOrderStart());
-    try{
-        const res=await userRequest.post(`/orders`, order );
-        dispatch(addOrderSuccess(res.data));
-
-    }catch(err){
-        
-        dispatch(addOrderFailure());
+    try {
+      const res = await userRequest().post(`/orders`, orderData);
+      dispatch(addOrderSuccess(res.data));
+    } catch (err) {
+      dispatch(addOrderFailure());
+      console.error("Order creation error:", err.response?.data?.error || err.message);
     }
-};
+  };
 //logout
 export const logOut=async(dispatch)=>{
     dispatch(logout());
