@@ -1,0 +1,43 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Product from "./pages/Product";
+import Home from "./pages/Home";
+import ProductList from "./pages/ProductList";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Cart from "./pages/Cart";
+import NewProduct from "./pages/newProduct/NewProduct";
+import Success from "./pages/Success";
+import ProductAdded from "./pages/ProductAdded";
+import Order from "./pages/Order";
+import Logout from "./pages/Logout";
+import ScrollToTop from "./components/ScrollToTop";
+import { BrowserUpdatedRounded } from '@mui/icons-material';
+
+// import { useSelector } from "react-redux";
+
+const App: React.FC = () => {
+  // const user = useSelector((state: RootState) => state.user.currentUser);
+
+  return (
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/products/:category" element={<ProductList />} />
+        <Route path="/newproduct" element={<NewProduct />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/product-added" element={<ProductAdded />} />
+        <Route path="/order-details" element={<Order />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;

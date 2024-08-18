@@ -11,18 +11,32 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
 `;
+interface FiltersType{
+  [key:string]:string;
+}
+interface ProductProps{
+  cat?: string;
+  filters?: FiltersType;
+  sort?: string;
+}
+interface ProductType{
+  _id: string;
+  createdAt: string;
+  price:number;
+  [key:string]:any
+}
 
-const Products = ({ cat, filters, sort }) => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+const Products:React.FC<ProductProps> = ({ cat, filters, sort }) => {
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
 
   useEffect(() => {
     let url = "https://relife-resource.onrender.com/";
     const getProducts = async () => {
       setIsLoading(true);
       try {
-        const res = await axios.get(cat ? `${url}api/products?category=${cat}` : `${url}api/products`);
+        const res = await axios.get<{data:ProductType[]}>(cat ? `${url}api/products?category=${cat}` : `${url}api/products`);
         // console.log("API Response:", res.data);
         setProducts(res.data.data);
       } catch (err) {
@@ -52,7 +66,8 @@ const Products = ({ cat, filters, sort }) => {
   useEffect(() => {
     if (sort === "newest") {
       setFilteredProducts(prev =>
-        [...prev].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        [...prev].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+
       );
     } else if (sort === "asc") {
       setFilteredProducts(prev =>

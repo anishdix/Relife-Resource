@@ -1,4 +1,4 @@
-// import React from "react";
+import React from 'react';
 import Announcement from "../components/Announcement";
 import Categories from "../components/Categories";
 import Footer from "../components/Footer";
@@ -9,19 +9,18 @@ import Slider from "../components/Slider";
 import Text from "../components/text";
 import CategoryText from "../components/CategoryText";
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <div>
       <Announcement />
       <Navbar />
       <Slider />
-      <CategoryText/>
+      <CategoryText />
       <Categories />
-      <Text/>
-      
-      <Products/>
-      <Newsletter/>
-      <Footer/>
+      <Text />
+      <Products />
+      <Newsletter />
+      <Footer />
     </div>
   );
 };

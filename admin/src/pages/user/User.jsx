@@ -30,7 +30,7 @@ export default function User() {
           <div className="userShowTop">
             <img
               src={user.img}
-              alt=""
+              alt="userImg"
               className="userShowImg"
             />
             <div className="userShowTopTitle">
@@ -103,7 +103,7 @@ export default function User() {
                 <img
                   className="userUpdateImg"
                   src={user.img}
-                  alt=""
+                  alt="UserImage"
                 />
                 <label htmlFor="file">
                   <Publish className="userUpdateIcon" />

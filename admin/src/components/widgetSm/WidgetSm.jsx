@@ -27,7 +27,7 @@ export default function WidgetSm() {
                 user.img ||
                 "https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif"
               }
-              alt=""
+              alt="widget image"
               className="widgetSmImg"
             />
             <div className="widgetSmUser">
