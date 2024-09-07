@@ -10,6 +10,7 @@ position: relative;
 
 z-index: 0;
 
+
 `;
 
 
@@ -41,6 +42,7 @@ background-color:#e9dcdc;
 color: #292424;
 cursor:pointer;
 font-weight: 600;
+border-radius: 8px;
 `;
 const SellButton = styled.button`
 display: flex;
@@ -54,6 +56,7 @@ color: #292424;
 cursor:pointer;
 font-weight: 600;
 margin-top: 10px;
+border-radius: 8px;
 
 
 `

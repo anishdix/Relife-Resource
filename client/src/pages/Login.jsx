@@ -5,6 +5,7 @@ import { login } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import background from "../assests/background.jpg"
 
 
 const Container = styled.div`
@@ -14,7 +15,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://wallpapercave.com/wp/gQSAMah.jpg")
+    url(${background})
       center;
   background-size: cover;
   display: flex;
